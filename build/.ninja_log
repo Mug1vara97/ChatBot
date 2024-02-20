@@ -1,8 +1,0 @@
-# ninja log v5
-7	203	7301582360297940	test_autogen/timestamp	2cc8cfe1c3c75ffb
-7	203	7301582360297940	test_autogen/mocs_compilation.cpp	2cc8cfe1c3c75ffb
-7	203	7301582360297940	C:/Qt/One/build/test_autogen/timestamp	2cc8cfe1c3c75ffb
-7	203	7301582360297940	C:/Qt/One/build/test_autogen/mocs_compilation.cpp	2cc8cfe1c3c75ffb
-203	251	7301582361077334	CMakeFiles/test.dir/test_autogen/mocs_compilation.cpp.obj	695da3eec021465c
-206	3076	7301582389233747	CMakeFiles/test.dir/src/main.cpp.obj	3e6cf25a9d0029c7
-3091	3317	7301582391772148	test.exe	146c5f93e873d003
