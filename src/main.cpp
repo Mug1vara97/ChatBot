@@ -14,6 +14,11 @@
 #include <QStack>
 #include <QProcess>
 #include <QList>
+#include <QTimer>
+#include <QTextEdit>
+#include <QObject>
+#include <QDesktopServices>
+#include <QUrl>
 
 class Message {
 public:
@@ -41,8 +46,13 @@ void addMessageToHistory(QList<Message>& messageHistory, const QString& sender, 
 }
 
 void displayMessage(QTextEdit* chatBox, const QString& sender, const QString& text) {
-    chatBox->append(sender + ": " + text);
+    if (sender == "Bot") {
+        chatBox->append(sender + ": " + text);
+    } else {
+        chatBox->append(sender + ": " + text);
+    }
 }
+
 
 bool isOperator(const QChar &op) {
     return op == '+' || op == '-' || op == '*' || op == '/';
@@ -132,12 +142,19 @@ void getTime(QTextEdit* chatBox) {
     QDateTime currentTime = QDateTime::currentDateTime();
     chatBox->append("Bot: Текущее время: " + currentTime.toString("hh:mm:ss"));
 }
+void openLab(QTextEdit* chatBox, QList<Message>& messageHistory) {
+    chatBox->append("Bot: Открываю страницу с документацией...");
+    QDesktopServices::openUrl(QUrl("https://drive.google.com/file/d/1XPwekfV6TW1L6RAhAGhuOjeLg1av-lI-/view"));
+    addMessageToHistory(messageHistory, "Bot", "Открытие страницы с лабораторной работой");
+}
 
 void respondToMessage(QTextEdit* chatBox, const QString& messageText, QList<Message>& messageHistory) {
-    if (messageText.toLower() == "привет") {
+    if (messageText.toLower() == "привет" ) {
         chatBox->append("Bot: Привет!");
         addMessageToHistory(messageHistory, "Bot", "Привет!");
-    } else if (messageText.toLower() == "steam") {
+    } else if (messageText.toLower() == "лаба") {
+        openLab(chatBox, messageHistory);
+    }else if (messageText.toLower() == "steam") {
         chatBox->append("Bot: запуск стима...");
         addMessageToHistory(messageHistory, "Bot", "запуск стима...");
         runApplication("C:\\Program Files (x86)\\Steam\\steam.exe");
@@ -152,6 +169,19 @@ void respondToMessage(QTextEdit* chatBox, const QString& messageText, QList<Mess
         double result = evaluateExpression(messageText);
         chatBox->append("Bot: Результат: " + QString::number(result));
         addMessageToHistory(messageHistory, "Bot", "Результат: " + QString::number(result));
+    } else if (messageText.toLower() == "помощь") {
+        chatBox->append("Bot: Доступные команды:");
+        chatBox->append("1. Привет - поприветствовать бота");
+        chatBox->append("2. Steam - запустить Steam");
+        chatBox->append("3. Opera - запустить браузер Opera");
+        chatBox->append("4. Время - получить текущее время");
+        chatBox->append("5. Математическое выражение - вычислить результат выражения");
+        chatBox->append("6. Пока - закрытие программы");
+        addMessageToHistory(messageHistory, "Bot", "Доступные команды:\n1. Привет \n2. Steam \n3. Opera \n4. Время \n5. Математическое выражение \n 6. Пока");
+    } else if (messageText.toLower() == "пока") {
+        chatBox->append("Bot: До свидания!");
+        addMessageToHistory(messageHistory, "Bot", "До свидания!");
+        QTimer::singleShot(2000, [](){ QApplication::exit(); });
     } else {
         chatBox->append("Bot: Извините, я не понимаю ваш запрос.");
         addMessageToHistory(messageHistory, "Bot", "Извините, я не понимаю ваш запрос.");
@@ -216,6 +246,7 @@ int main(int argc, char *argv[])
     QMainWindow window;
     window.setWindowTitle("Chat Bot");
     setWindowSize(window, 800, 600);
+    window.setWindowIcon(QIcon("../src/grafic/icon/zxc.jpg"));
 
     QWidget *widget = new QWidget();
     QVBoxLayout *layout = new QVBoxLayout();
