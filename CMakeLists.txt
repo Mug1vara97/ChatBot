@@ -13,7 +13,6 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 
 add_executable(test WIN32
   src/main.cpp
-  src/loginwindow.cpp
 )
 
 target_link_libraries(test Qt6::Core Qt6::Widgets Qt6::Gui)
