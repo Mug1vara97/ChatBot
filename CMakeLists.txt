@@ -9,11 +9,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6  REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 
 add_executable(test WIN32
   src/main.cpp
+  src/loginwindow.cpp
 )
+
 target_link_libraries(test Qt6::Core Qt6::Widgets Qt6::Gui)
-
-
