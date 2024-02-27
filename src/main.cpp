@@ -181,7 +181,7 @@ void respondToMessage(QTextEdit* chatBox, const QString& messageText, QList<Mess
     } else if (messageText.toLower() == "пока") {
         chatBox->append("Bot: До свидания!");
         addMessageToHistory(messageHistory, "Bot", "До свидания!");
-        QTimer::singleShot(2000, [](){ QApplication::exit(); });
+        QTimer::singleShot(1000, [](){ QApplication::exit(); });
     } else {
         chatBox->append("Bot: Извините, я не понимаю ваш запрос.");
         addMessageToHistory(messageHistory, "Bot", "Извините, я не понимаю ваш запрос.");
